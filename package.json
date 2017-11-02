@@ -18,10 +18,17 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "node-rest-client": "^3.1.0",
+    "path": "^0.12.7",
     "react": "^16.0.0",
+    "react-axios": "^1.0.3",
     "react-bootstrap": "^0.31.3",
     "react-bootstrap-form": "^0.1.4-beta6",
     "react-dom": "^16.0.0",
-    "react-iframe": "^1.0.7"
+    "react-iframe": "^1.0.7",
+    "react-native-rest-client": "^0.1.1"
   }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { FormGroup } from 'react-bootstrap'
+import axios from 'axios';
 
 export default class FilterFish extends Component {
   constructor(props) {
@@ -12,6 +13,18 @@ export default class FilterFish extends Component {
     }
   }
 
+  get() {
+    axios.get('http://127.0.0.1:3000/')
+      .then(response => console.log('response ====', response));
+    // .catch(err => console.log('err ====='), err);
+  }
+
+  post(term) {
+    axios.post('http://127.0.0.1:3000/api/fishFilter', term)
+      .then(response => console.log('response ====', term));
+    // .catch(err => console.log('err ====='), err);
+  }
+
   handleChange(event) {
     console.log('event.target.value', event.target.name, event.target.value)
     var obj = {};
@@ -20,10 +33,12 @@ export default class FilterFish extends Component {
   }
 
   handleClickFilterFish() {
-    this.doSomething()
+    this.sendToServer()
+    // this.get()
+    this.post(this.state)
   }
 
-  doSomething() {
+  sendToServer() {
     console.log(this.state);
   }
 
@@ -39,3 +54,5 @@ export default class FilterFish extends Component {
     )
   }
 }
+
+// export default this.state
