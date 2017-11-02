@@ -3,6 +3,7 @@ const parser = require('body-parser');
 const path = require('path');
 const routes = require('./router.js');
 const morgan = require('morgan');
+const db = require('./db.js');
 
 const server = express();
 // server.use(morgan('dev'));
