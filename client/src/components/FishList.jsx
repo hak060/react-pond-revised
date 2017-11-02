@@ -8,9 +8,9 @@ function FishList () {
 
   return (
     <div className="center">
-    <div className="cohort-list-title">{title}, Number of Fish: {fishes.length}</div>
+    <div className="fish-list-title">{title}, Number of Fish: {fishes.length}</div>
       <div className="grid">
-      { fishes.map( (fish, index) => (<FishEntry key={fish.email} fish={fish} />)) }
+      { fishes.map( (fish, index) => (<FishEntry key={index} fish={fish} />)) }
       </div>
   </div>
   )
@@ -18,3 +18,5 @@ function FishList () {
 
 
 export default FishList
+
+// { fishes.map((fish, index) => (<FishEntry key={fish.name} fish={fish} />)) }

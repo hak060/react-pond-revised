@@ -37,9 +37,6 @@ export default class FishInAndOut extends Component {
           <Button bsStyle="success" onClick={this.handleClickInserFish}>Insert Fish</Button>
           <Button bsStyle="success" onClick={this.handleClickGetFish}>Get Fish</Button>
         </ButtonToolbar>
-        {/* <TextToolbar>
-
-        </TextToolbar> */}
       </div>
     )
   }

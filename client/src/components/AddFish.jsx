@@ -8,7 +8,7 @@ export default class AddFish extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.state = {
       name: '',
-      age: null,
+      age: undefined,
       description: '',
       image: ''}
   }
@@ -20,12 +20,11 @@ export default class AddFish extends Component {
     this.setState(obj, () => {console.log('new state: ', this.state)});
   }
 
-
   handleClickInserFish() {
-    this.doSomething1()
+    this.doSomething()
   }
 
-  doSomething1() {
+  doSomething() {
     console.log(this.state);
   }
 
