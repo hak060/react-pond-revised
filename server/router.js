@@ -19,7 +19,10 @@ router.post('/fishPost', function (req, res) {
 
 router.post('/fishFilter', function (req, res) {
   console.log('got filterFish request', req.body);
-  res.send(req.body);
+  models.filterFishes.post(req.body, function (err, rows) {
+    console.log('rows ========', rows);
+    res.send(rows);
+  });
 });
 
 module.exports = router

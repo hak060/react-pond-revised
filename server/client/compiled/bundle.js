@@ -29749,6 +29749,7 @@ var FilterFish = function (_Component) {
       var _this2 = this;
 
       _axios2.default.post('http://127.0.0.1:3000/api/fishFilter', term).then(function (response) {
+        console.log('server response ====', response);
         _this2.setState(response.data, function () {
           console.log('filter post ===', response.data);
           _this2.props.handleClickInserFish(response.data);
@@ -42031,6 +42032,11 @@ function FishEntry(props) {
       "div",
       { className: "fish-name" },
       props.fish.name
+    ),
+    _react2.default.createElement(
+      "div",
+      { className: "fish-age" },
+      props.fish.age
     ),
     _react2.default.createElement(
       "div",

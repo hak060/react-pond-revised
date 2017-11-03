@@ -22,6 +22,7 @@ export default class FilterFish extends Component {
   post(term) {
     axios.post('http://127.0.0.1:3000/api/fishFilter', term)
       .then(response => {
+        console.log('server response ====',response);
         this.setState(response.data, () => {
           console.log('filter post ===', response.data);
           this.props.handleClickInserFish(response.data);

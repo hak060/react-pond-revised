@@ -19,9 +19,19 @@ module.exports = {
       })
     }
   },
-  filterFishes: {
-    get: function (callback) {
 
+  filterFishes: {
+    post: function (keyward, callback) {
+      // console.log('keyward =======', keyward)
+      // var nameToFind = keyward.name;
+      // var ageToFind = keyward.age;
+      // console.log('findParaMeter ====== ', nameToFind, ageToFind);
+
+      var sqlStringGetFiltered = 
+        `select * from fishes where name = "${keyward.name}" and age = ${keyward.age}`;
+      db.connection.query(sqlStringGetFiltered, function (err, rows) {
+        callback(err, rows);
+      });
     }
   }
 }
