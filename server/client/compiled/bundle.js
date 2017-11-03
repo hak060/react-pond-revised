@@ -9454,6 +9454,8 @@ module.exports = Cancel;
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -9474,37 +9476,96 @@ var _AddFish = __webpack_require__(320);
 
 var _AddFish2 = _interopRequireDefault(_AddFish);
 
+var _AllFish = __webpack_require__(321);
+
+var _AllFish2 = _interopRequireDefault(_AllFish);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function App() {
-  // const title = 'fishes'
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  return _react2.default.createElement(
-    'div',
-    { className: 'app-div' },
-    _react2.default.createElement(
-      'div',
-      { className: 'title' },
-      'Add Fish'
-    ),
-    _react2.default.createElement(
-      'div',
-      null,
-      _react2.default.createElement(_AddFish2.default, null)
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'title' },
-      'Filter Fish'
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'grid-top' },
-      _react2.default.createElement(_FilterFish2.default, null)
-    ),
-    _react2.default.createElement(_FishList2.default, null)
-  );
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_Component) {
+  _inherits(App, _Component);
+
+  function App(props) {
+    _classCallCheck(this, App);
+
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+    _this.state = {
+      fishArray: []
+    };
+    return _this;
+  }
+
+  _createClass(App, [{
+    key: 'handleFishListChange',
+    value: function handleFishListChange(fishes) {
+      var _this2 = this;
+
+      this.setState({
+        fishArray: fishes
+      }, function () {
+        console.log('index.jsx: ', _this2.state);
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'app-div' },
+        _react2.default.createElement(
+          'div',
+          { className: 'title' },
+          'Show All Fish'
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_AllFish2.default, {
+            handleClickInserFish: this.handleFishListChange.bind(this)
+          })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'title' },
+          'Add Fish'
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_AddFish2.default, null)
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'title' },
+          'Filter Fish'
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_FilterFish2.default, {
+            handleClickInserFish: this.handleFishListChange.bind(this)
+          })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'grid-top' },
+          _react2.default.createElement(_FishList2.default, {
+            fishListToDisplay: this.state
+          })
+        )
+      );
+    }
+  }]);
+
+  return App;
+}(_react.Component);
 
 _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));
 
@@ -29685,21 +29746,26 @@ var FilterFish = function (_Component) {
   }, {
     key: 'post',
     value: function post(term) {
+      var _this2 = this;
+
       _axios2.default.post('http://127.0.0.1:3000/api/fishFilter', term).then(function (response) {
-        return console.log('response ====', term);
+        _this2.setState(response.data, function () {
+          console.log('filter post ===', response.data);
+          _this2.props.handleClickInserFish(response.data);
+        });
       });
       // .catch(err => console.log('err ====='), err);
     }
   }, {
     key: 'handleChange',
     value: function handleChange(event) {
-      var _this2 = this;
+      var _this3 = this;
 
       console.log('event.target.value', event.target.name, event.target.value);
       var obj = {};
       obj[event.target.name] = event.target.value;
       this.setState(obj, function () {
-        console.log('new state: ', _this2.state);
+        console.log('new state: ', _this3.state);
       });
     }
   }, {
@@ -41902,7 +41968,7 @@ var _FishEntry2 = _interopRequireDefault(_FishEntry);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function FishList() {
+function FishList(props) {
   var title = 'Fresh Fishes';
 
   return _react2.default.createElement(
@@ -41918,7 +41984,7 @@ function FishList() {
     _react2.default.createElement(
       'div',
       { className: 'grid' },
-      _fishdata2.default.map(function (fish, index) {
+      props.fishListToDisplay.fishArray.map(function (fish, index) {
         return _react2.default.createElement(_FishEntry2.default, { key: index, fish: fish });
       })
     )
@@ -42055,8 +42121,8 @@ var AddFish = function (_Component) {
     }
   }, {
     key: 'handleClickInserFish',
-    value: function handleClickInserFish() {
-      this.sendToServer();
+    value: function handleClickInserFish(e) {
+      // this.sendToServer()his.sendToServer()
       // this.get()
       this.post(this.state);
     }
@@ -42111,6 +42177,111 @@ var AddFish = function (_Component) {
 
 
 exports.default = AddFish;
+
+/***/ }),
+/* 321 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(93);
+
+var _axios = __webpack_require__(138);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _FishEntry = __webpack_require__(319);
+
+var _FishEntry2 = _interopRequireDefault(_FishEntry);
+
+var _FishList = __webpack_require__(317);
+
+var _FishList2 = _interopRequireDefault(_FishList);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AllFish = function (_Component) {
+  _inherits(AllFish, _Component);
+
+  function AllFish(props) {
+    _classCallCheck(this, AllFish);
+
+    var _this = _possibleConstructorReturn(this, (AllFish.__proto__ || Object.getPrototypeOf(AllFish)).call(this, props));
+
+    _this.handleClickAllFish = _this.handleClickAllFish.bind(_this);
+    _this.state = {};
+    return _this;
+  }
+
+  _createClass(AllFish, [{
+    key: 'get',
+    value: function get() {
+      var _this2 = this;
+
+      _axios2.default.get('http://127.0.0.1:3000/api/allFishes').then(function (response) {
+        console.log('response ====', response.data);
+        _this2.setState(response.data, function () {
+          _this2.props.handleClickInserFish(response.data);
+          console.log('new state: ', _this2.state);
+        });
+      });
+      // .catch(err => console.log('err ====='), err);
+    }
+
+    // post(term) {
+    //   axios.post('http://127.0.0.1:3000/api/fishFilter', term)
+    //     .then(response => console.log('response ====', term));
+    //   // .catch(err => console.log('err ====='), err);
+    // }
+
+  }, {
+    key: 'handleClickAllFish',
+    value: function handleClickAllFish() {
+      this.sendToServer();
+      this.get();
+      // this.post(this.state)
+    }
+  }, {
+    key: 'sendToServer',
+    value: function sendToServer() {
+      console.log(this.state);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.FormGroup,
+          null,
+          _react2.default.createElement('input', { type: 'submit', value: 'ShowAll', onClick: this.handleClickAllFish })
+        )
+      );
+    }
+  }]);
+
+  return AllFish;
+}(_react.Component);
+
+exports.default = AllFish;
 
 /***/ })
 /******/ ]);

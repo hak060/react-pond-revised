@@ -3,14 +3,14 @@ import fishes from '../seed/fishdata.json'
 
 import FishEntry from './FishEntry.jsx'
 
-function FishList () {
+function FishList (props) {
   const title = 'Fresh Fishes'
 
   return (
     <div className="center">
     <div className="fish-list-title">{title}, Number of Fish: {fishes.length}</div>
       <div className="grid">
-      { fishes.map( (fish, index) => (<FishEntry key={index} fish={fish} />)) }
+        {props.fishListToDisplay.fishArray.map( (fish, index) => (<FishEntry key={index} fish={fish} />)) }
       </div>
   </div>
   )

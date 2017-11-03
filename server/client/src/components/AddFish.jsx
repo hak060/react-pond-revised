@@ -33,8 +33,8 @@ export default class AddFish extends Component {
     this.setState(obj, () => {console.log('new state: ', this.state)});
   }
 
-  handleClickInserFish() {
-    this.sendToServer()
+  handleClickInserFish(e) {
+    // this.sendToServer()his.sendToServer()
     // this.get()
     this.post(this.state)
   }
